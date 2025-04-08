@@ -16,6 +16,7 @@ import aceleradora.socios.back.dto.UsuarioDTO;
 import aceleradora.socios.back.services.ReservaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/reserva")
 public class ReservaController {
-    //TODO: REVISAR ESTO
     @Autowired
     ReservaService reservaService;
 
@@ -47,26 +47,14 @@ public class ReservaController {
         List<ReservaDTO> reservaDTOs = reservaService.obtenerPorNombre(nombre);
         return new ResponseEntity<>(reservaDTOs, HttpStatus.OK);
     }
-/*
-    @GetMapping("/obtenerReservaPorHorario/{nombreLugar}")
-    public ResponseEntity<List<ReservaDTO>> obtenerReservaPorNombreYHorario(@PathVariable("nombreLugar") String nombre,@RequestParam("Horario") Date horario) {
-        List<ReservaDTO> reservaDTOs = reservaService.obtenerPorNombreYHorario(nombre);
-        return new ResponseEntity<>(reservaDTOs, HttpStatus.OK);
-    }
-*/
+
     @PostMapping("/altaReserva")
     public ResponseEntity<ReservaDTO> altaReserva(@Valid @RequestBody ReservaDTO reservaDTO){
 
         ReservaDTO nuevaReserva = reservaService.guardarReserva(reservaDTO);
         return new ResponseEntity<>(nuevaReserva,HttpStatus.OK);
     }
-/*
-    @PutMapping("/bajaReserva/{reservaId}")
-    public ResponseEntity<ReservaDTO> bajaReserva(@PathVariable("reservaId") Long id){
-        ReservaDTO reservaBaja = reservaService.bajaReserva(id);
-        return new ResponseEntity<>(reservaBaja,HttpStatus.OK);
-    }
-*/
+
     @DeleteMapping("/eliminarReserva/{reservaId}")
     public ResponseEntity<ReservaDTO> eliminarReserva(@PathVariable("reservaId") Long id){
         ReservaDTO reservaEliminada = reservaService.eliminarReserva(id);
@@ -78,33 +66,17 @@ public class ReservaController {
         ReservaDTO reservaBaja = reservaService.editarReserva(id,reservaDTO);
         return new ResponseEntity<>(reservaBaja,HttpStatus.OK);
     }
-
+    @Cacheable(value = "reservarListadasCache")
     @GetMapping("/listar")
     public ResponseEntity<List<ReservaDTO>> listar() {
         return ResponseEntity.ok(reservaService.listar());
     }
 
-
     @GetMapping("/filtro")
     public ResponseEntity<List<ReservaDTO>> obtenerReservasFiltradas(@RequestParam(name = "estado", required = false) List<String> estado){
-        List<ReservaDTO> reservasFiltradas = new ArrayList<>();
-        reservasFiltradas = reservaService.busquedaFiltrada(estado);
+        List<ReservaDTO> reservasFiltradas = reservaService.busquedaFiltrada(estado);
         return new ResponseEntity<>(reservasFiltradas, HttpStatus.OK);
     }
-//    @PostMapping("/{reservaId}/responsables/{usuarioId}")
-//    public ResponseEntity<?> agregarResponsable(@PathVariable Long reservaId, @PathVariable Long usuarioId) {
-//        return ResponseEntity.ok(reservaService.agregarResponsable(reservaId, usuarioId));
-//    }
-//
-//    @DeleteMapping("/{reservaId}/responsables/{usuarioId}")
-//    public ResponseEntity<?> eliminarResponsable(@PathVariable Long reservaId, @PathVariable Long usuarioId) {
-//        return ResponseEntity.ok(reservaService.eliminarResponsable(reservaId, usuarioId));
-//    }
-//
-//    @GetMapping("/{reservaId}/responsables")
-//    public ResponseEntity<List<Usuario>> listarResponsables(@PathVariable Long reservaId) {
-//        return ResponseEntity.ok(reservaService.listarResponsables(reservaId));
-//    }
 
     @GetMapping("/listarEstados")
     public ResponseEntity<List<EstadoReserva>> listarEstados() {

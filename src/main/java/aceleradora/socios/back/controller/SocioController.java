@@ -2,12 +2,12 @@ package aceleradora.socios.back.controller;
 
 import aceleradora.socios.back.clases.socio.Socio;
 import aceleradora.socios.back.clases.socio.Categoria;
-import aceleradora.socios.back.dto.ResumenSocioDTO;
 import aceleradora.socios.back.dto.SocioDTO;
 import aceleradora.socios.back.services.SocioDTOService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,32 +25,28 @@ public class SocioController {
 
     @Autowired
     ModelMapper modelMapper;
-    //TODO: LOS CROSSORIGIN RAROS
-    @CrossOrigin(origins = "http://localhost:5173")
+
+    @Cacheable(value = "sociosCache")
     @GetMapping(path = "/socios")
     public List<SocioDTO> getList(){
         return this.socioDTOService.obtenerListaDeSocios();
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/alta")
     public SocioDTO guardarSocio(@RequestBody SocioDTO socio) {
         return this.socioDTOService.guardarSocio(socio);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/obtenerSocio/{socioId}")
     public Optional<SocioDTO> obtenerSocioPorId(@PathVariable("socioId") Long id) {
         return this.socioDTOService.obtenerPorId(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("/editarSocio/{socioId}")
     public SocioDTO editarSocio(@PathVariable Long socioId, @RequestBody SocioDTO socioDTO){
         return this.socioDTOService.editarSocio(socioId, socioDTO);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("/bajaSocio/{socioId}")
     public SocioDTO eliminarSocio(@PathVariable Long socioId){
         return this.socioDTOService.eliminarSocio(socioId);
@@ -114,7 +110,7 @@ public class SocioController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Socio no encontrado", e);
         }
     }
-
+    @Cacheable(value = "sociosActivosCache")
     @GetMapping("/activo")
     public ResponseEntity<Boolean> estaActivo(@RequestParam Long id) {
         Optional<SocioDTO> socio = socioDTOService.obtenerPorId(id);

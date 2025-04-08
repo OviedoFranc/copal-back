@@ -5,6 +5,7 @@ import aceleradora.socios.back.dto.*;
 import aceleradora.socios.back.services.DepartamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -45,7 +46,7 @@ public class DepartamentoController {
                 .map(s -> new ResponseEntity<>(s, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    @Cacheable(value = "departamentosCache")
     @GetMapping("/departamentos")
     public ResponseEntity<List<DepartamentoDTO>> todosDepartamentos() {
         List<DepartamentoDTO> aux = departamentoService.traerTodos();

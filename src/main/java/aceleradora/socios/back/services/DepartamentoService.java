@@ -25,17 +25,11 @@ public class DepartamentoService {
 
     private final DepartamentoRepository departamentoRepository;
 
-    private final AutoridadRepository autoridadRepository;
-
     private final ModelMapper modelMapper;
 
-    private final UserRepository userRepository;
-
-    public DepartamentoService(DepartamentoRepository departamentoRepository, AutoridadRepository autoridadRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public DepartamentoService(DepartamentoRepository departamentoRepository, ModelMapper modelMapper) {
         this.departamentoRepository = departamentoRepository;
-        this.autoridadRepository = autoridadRepository;
         this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
     }
 
 

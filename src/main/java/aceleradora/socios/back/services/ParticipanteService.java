@@ -1,8 +1,5 @@
 package aceleradora.socios.back.services;
 
-import aceleradora.socios.back.clases.Usuario;
-import aceleradora.socios.back.clases.departamento.Autoridad;
-import aceleradora.socios.back.clases.departamento.Departamento;
 import aceleradora.socios.back.clases.evento.Evento;
 import aceleradora.socios.back.clases.evento.Participante;
 import aceleradora.socios.back.clases.evento.TipoParticipante;
@@ -14,13 +11,10 @@ import aceleradora.socios.back.repositorios.SocioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ParticipanteService {

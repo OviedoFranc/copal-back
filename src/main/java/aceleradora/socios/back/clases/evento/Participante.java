@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Getter@Setter
 @Entity
+@Table(name = "participante")
 public class Participante {
 
     @Id
@@ -22,10 +23,6 @@ public class Participante {
     @Enumerated(EnumType.STRING)
     private TipoParticipante tipoParticipante;
 
-//    private Integer satisfaccion;
-
-//    private String codigoUnico;
-
     @ManyToOne
     private Socio socioAsociado;
 
@@ -35,9 +32,6 @@ public class Participante {
     private String entidadQueRepresenta;
 
     private String email;
-
-
-
 
     public Participante() {
     }

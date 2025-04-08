@@ -25,15 +25,13 @@ public class ReservaService {
     private final EstadoReservaRepository estadoReservaRepository;
     private final DepartamentoRepository departamentoRepository;
 
-    private final UserRepository usuarioRepository;
 
-    public ReservaService(ReservaRepository reservaRepository, LugarRepository lugarRepository, ModelMapper modelMapper, RecursoRepository recursoRepository, EstadoReservaRepository estadoReservaRepository, UserRepository usuarioRepository, DepartamentoRepository departamentoRepository) {
+    public ReservaService(ReservaRepository reservaRepository, LugarRepository lugarRepository, ModelMapper modelMapper, RecursoRepository recursoRepository, EstadoReservaRepository estadoReservaRepository,DepartamentoRepository departamentoRepository) {
         this.reservaRepository = reservaRepository;
         this.lugarRepository = lugarRepository;
         this.modelMapper = modelMapper;
         this.recursoRepository = recursoRepository;
         this.estadoReservaRepository = estadoReservaRepository;
-        this.usuarioRepository = usuarioRepository;
         this.departamentoRepository = departamentoRepository;
 
         }

@@ -1,9 +1,7 @@
 package aceleradora.socios.back.clases.socio;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Collection;
-
 import aceleradora.socios.back.clases.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -81,6 +79,4 @@ public class Socio{
 	public boolean isActivo() {
 		return estado;
 	}
-	
-
 }

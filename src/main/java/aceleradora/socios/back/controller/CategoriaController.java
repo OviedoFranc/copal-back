@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class CategoriaController {
 	
 	@Autowired
 	CategoriaRepository repoCategoria;
-	
+	@Cacheable(value = "categoriasCache")
 	@GetMapping("/categorias")
 	public List<CategoriaDTO> obtenerCategorias() {
 		List<Categoria> categorias = repoCategoria.findAll();

@@ -14,12 +14,9 @@ import java.util.Optional;
 @Service
 public class RecursoService {
 
-    private final ModelMapper modelMapper;
-
     private final RecursoRepository recursoRepository;
 
-    public RecursoService(ModelMapper modelMapper, RecursoRepository recursoRepository) {
-        this.modelMapper = modelMapper;
+    public RecursoService( RecursoRepository recursoRepository) {
         this.recursoRepository = recursoRepository;
     }
 

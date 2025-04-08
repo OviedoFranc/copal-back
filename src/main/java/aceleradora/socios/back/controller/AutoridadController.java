@@ -8,6 +8,7 @@ import aceleradora.socios.back.repositorios.PuestoRepository;
 import aceleradora.socios.back.services.AutoridadService;
 import aceleradora.socios.back.services.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +62,7 @@ public class AutoridadController {
         List<AutoridadDTO> autoridades = autoridadService.obtenerAutoridades(departamentoId);
         return new ResponseEntity<>(autoridades, HttpStatus.OK);
     }
-    //TODO: REVISAR ESTO
+    @Cacheable(value = "puestosCache")
     @GetMapping("/Puestos")
     public  ResponseEntity<List<String>> puestos(){
         List<Puesto> puestos = puestoRepository.findAll();

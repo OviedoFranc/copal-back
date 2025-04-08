@@ -1,6 +1,5 @@
 package aceleradora.socios.back.clases.espacio;
 
-import aceleradora.socios.back.clases.Usuario;
 import aceleradora.socios.back.clases.departamento.Departamento;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,11 +8,11 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter@Setter@NoArgsConstructor
 @Entity
+@Table(name = "reserva")
 public class Reserva {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)

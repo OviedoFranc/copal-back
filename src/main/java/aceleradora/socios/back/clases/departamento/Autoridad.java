@@ -2,16 +2,15 @@ package aceleradora.socios.back.clases.departamento;
 
 import aceleradora.socios.back.clases.Usuario;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "autoridad")
 public class Autoridad {
 
     @Id
