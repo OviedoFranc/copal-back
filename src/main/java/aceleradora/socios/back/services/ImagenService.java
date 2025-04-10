@@ -39,7 +39,7 @@ public class ImagenService {
 
         if (departamentoOptional.isPresent()) {
             String nombreArchivo = "departamento_" + id;
-            Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo + ".JPEG");
+            Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo + ".jpeg");
 
             Departamento dpto = departamentoOptional.get();
             dpto.setImagen(ubicacionCopia.toString());
@@ -61,7 +61,7 @@ public class ImagenService {
 
         if (socioOpt.isPresent()) {
             String nombreArchivo = "socio_" + id;
-            Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo + ".JPEG");
+            Path ubicacionCopia = Paths.get(path_imagenes + File.separator + nombreArchivo + ".jpeg");
 
             Socio socio = socioOpt.get();
             socio.setImagen(ubicacionCopia.toString());
@@ -80,14 +80,14 @@ public class ImagenService {
     private void optimizarImagen(MultipartFile archivo, String rutaDestino) throws IOException {
         Thumbnails.of(archivo.getInputStream())
                 .size(640, 360)
-                .outputFormat("JPEG")
+                .outputFormat("jpeg")
                 .outputQuality(0.75)
                 .toFile(rutaDestino);
     }
 
     public Resource obtenerImagen(String nombreArchivo) {
         try {
-            nombreArchivo = nombreArchivo.endsWith(".JPEG") ? nombreArchivo : nombreArchivo + ".JPEG";
+            nombreArchivo = nombreArchivo.endsWith(".jpeg") ? nombreArchivo : nombreArchivo + ".jpeg";
             Path rutaArchivo = Paths.get(path_imagenes).resolve(nombreArchivo).normalize();
             Resource recurso = new UrlResource(rutaArchivo.toUri());
             if (recurso.exists()) {
@@ -110,7 +110,7 @@ public class ImagenService {
     }
     public boolean eliminarImagenSiExiste(String nombreArchivo) {
         try {
-            Path rutaParaEliminar = Paths.get(path_imagenes + File.separator + nombreArchivo + ".JPEG");
+            Path rutaParaEliminar = Paths.get(path_imagenes + File.separator + nombreArchivo + ".jpeg");
 
             if (Files.exists(rutaParaEliminar)) {
                 Files.delete(rutaParaEliminar);
